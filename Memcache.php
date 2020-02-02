@@ -28,9 +28,9 @@ class Memcache
     // connect
     private static function connect()
     {
-        $redis = new \Memcache();
-        if (!$redis->connect('127.0.0.1', '11211')) exit('memcache connect failure');
-        return $redis;
+        $memcache = new \Memcache();
+        if (!$memcache->connect('127.0.0.1', '11211')) exit('memcache connect failure');
+        return $memcache;
     }
 }
 
@@ -38,9 +38,9 @@ class Client
 {
     public static function main()
     {
-        $redis = Memcache::getInstance();
-        if ($redis->set('k1', 'v1', MEMCACHE_COMPRESSED, 0)) {
-            echo $redis->get('k1');
+        $memcache = Memcache::getInstance();
+        if ($memcache->set('k1', 'v1', MEMCACHE_COMPRESSED, 0)) {
+            echo $memcache->get('k1');
         } else {
             exit('set key failure');
         }
