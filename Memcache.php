@@ -1,7 +1,8 @@
 <?php
-namespace imooc\Redis;
+namespace imooc\Memcache;
 
-class Redis {
+class Memcache
+{
     private static $_instance = null;
 
     // private __construct
@@ -27,8 +28,8 @@ class Redis {
     // connect
     private static function connect()
     {
-        $redis = new \Redis();
-        if (!$redis->connect('127.0.0.1', '6379')) exit('redis connect failure');
+        $redis = new \Memcache();
+        if (!$redis->connect('127.0.0.1', '11211')) exit('memcache connect failure');
         return $redis;
     }
 }
@@ -37,8 +38,8 @@ class Client
 {
     public static function main()
     {
-        $redis = Redis::getInstance();
-        if ($redis->set('k1', 'v1')) {
+        $redis = Memcache::getInstance();
+        if ($redis->set('k1', 'v1', MEMCACHE_COMPRESSED, 0)) {
             echo $redis->get('k1');
         } else {
             exit('set key failure');
@@ -48,15 +49,3 @@ class Client
 
 // test
 Client::main();
-
-
-
-
-
-
-
-
-
-
-
-
